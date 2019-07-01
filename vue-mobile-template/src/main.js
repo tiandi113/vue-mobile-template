@@ -4,6 +4,7 @@ import router from './router'
 import store from './store/store'
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import './main.css'
 require('../mock/mock')
 
 Vue.use(Vant)

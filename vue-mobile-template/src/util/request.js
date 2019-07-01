@@ -1,37 +1,32 @@
 import axios from 'axios'
-import { Toast, Dialog } from 'vant'
-
-var instance = axios.create({
-  baseURL: 'http://localhost',
-  withCredentials: true,
-  timeout: 10000
+// axios配置信息
+axios.defaults.withCredentials = true
+const service = axios.create({
+  baseURL: process.env.BASE_API, // api 的 前缀url
+  timeout: 5000 // 请求超时
 })
-debugger
-
-// 添加请求拦截器
-instance.interceptors.request.use(function (config) {
-  // 在发送请求之前做些什么
-  debugger
-  // config.headers['X-Token'] //增加Token
-  return config
-}, function (error) {
-  // 对请求错误做些什么
-  return Promise.reject(error)
-})
-
-// 添加响应拦截器
-instance.interceptors.response.use(function (response) {
-  const res = response.data
-  if (res.code !== 200) {
-    Dialog.alert({ message: res.message })
-    return Promise.reject(new Error(res.message || 'Error'))
-  } else {
-    return res
+// 数据发送前的拦截器
+service.interceptors.request.use(
+  config => {
+    return config
+  },
+  error => {
+    Promise.reject(error)
   }
-}, function (error) {
-  // 对响应错误做点什么
-  Toast.fail(error)
-  return Promise.reject(error)
+)
+// 数据接受时的拦截器
+service.interceptors.response.use((response) => {
+  return response
+}, (err) => {
+  switch (err.response.status) {
+    case 500:
+
+      break
+    case 429:
+
+      break
+    default:
+  }
 })
 
-export default instance
+export default service
