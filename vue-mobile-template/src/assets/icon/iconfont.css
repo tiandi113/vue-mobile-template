@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'my-icon';
+  src: url('./iconfont.ttf') format('truetype');
+}
+
+.my-icon {
+  font-family: 'my-icon';
+  position: relative;
+  font: 0.37333rem/1 "my-icon";
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.my-icon-fengyi:before {
+  content: "\e601";
+}
+
+.my-icon-duankuanwaitao:before {
+  content: "\e602";
+}
+
+.my-icon-chenshan:before {
+  content: "\e603";
+}
+
+.my-icon-duanqun:before {
+  content: "\e604";
+}
+
+.my-icon-duankuanweiyi:before {
+  content: "\e605";
+}
+
+.my-icon-majia:before {
+  content: "\e606";
+}
+
+.my-icon-changqun:before {
+  content: "\e607";
+}
+
+.my-icon-xiuxianku:before {
+  content: "\e608";
+}
+

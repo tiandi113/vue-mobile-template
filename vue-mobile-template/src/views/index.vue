@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <van-tabbar v-model="active" :activeColor="activeColor">
+    <van-tabbar v-model="active" :activeColor="activeColor" :safe-area-inset-bottom='true'>
       <template v-for="(item,index) in tabBar">
         <router-link
           class="van-tabbar-item"
@@ -30,6 +30,22 @@ export default {
       activeColor: 'red',
       shoppingCartNum: '',
       myNum: ''
+    }
+  },
+  mounted () {
+    this.active = this.$store.state.activeTabBar
+  },
+  watch: {
+    '$route' (to, from) {
+      // 对路由变化作出响应...
+    },
+    'active' (value) {
+      this.$store.commit('set_tabbar', value)
+      if (typeof (value) !== 'undefined') {
+        localStorage.setItem('tabbar', value)
+      } else {
+        this.active = parseInt(localStorage.getItem('tabbar'))
+      }
     }
   }
 }

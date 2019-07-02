@@ -3,7 +3,7 @@
   <div class="container">
     <form action="/">
       <van-search
-        class="search-border"
+        class="search"
         v-model="value"
         placeholder="请输入搜索关键词"
         show-action
@@ -13,56 +13,58 @@
         <div slot="action" @click="onSearch">搜索</div>
       </van-search>
     </form>
-    <van-swipe class="swipe" :autoplay="3000" :initial-swipe="defaltSwipe">
-      <van-swipe-item v-for="(image, index) in banner" :key="index" @click="_switchSwipe(index)">
-        <van-image class="swipe-img" :src="image" />
-      </van-swipe-item>
-    </van-swipe>
+    <div class="content">
+      <van-swipe class="swipe" :autoplay="3000" :initial-swipe="defaltSwipe">
+        <van-swipe-item v-for="(image, index) in banner" :key="index" @click="_switchSwipe(index)">
+          <van-image class="swipe-img" :src="image" />
+        </van-swipe-item>
+      </van-swipe>
 
-    <div class="menu">
-      <div class="menu-item">
-        <img class="menu-item-img" src="@/assets/images/clothes.svg" />服装
+      <div class="menu">
+        <div class="menu-item">
+          <img class="menu-item-img" src="@/assets/images/clothes.svg" />服装
+        </div>
+        <div class="menu-item">
+          <img class="menu-item-img" src="@/assets/images/book.svg" />书籍
+        </div>
+        <div class="menu-item">
+          <img class="menu-item-img" src="@/assets/images/tool.svg" />工具
+        </div>
+        <div class="menu-item">
+          <img class="menu-item-img" src="@/assets/images/food.svg" />食品
+        </div>
+        <div class="menu-item">
+          <img class="menu-item-img" src="@/assets/images/shop.svg" />更多商铺
+        </div>
       </div>
-      <div class="menu-item">
-        <img class="menu-item-img" src="@/assets/images/book.svg" />书籍
-      </div>
-      <div class="menu-item">
-        <img class="menu-item-img" src="@/assets/images/tool.svg" />工具
-      </div>
-      <div class="menu-item">
-        <img class="menu-item-img" src="@/assets/images/food.svg" />食品
-      </div>
-      <div class="menu-item">
-        <img class="menu-item-img" src="@/assets/images/shop.svg" />更多商铺
-      </div>
+      <van-swipe class="notice" :autoplay="3000" vertical indicator-color="#FFFBE8">
+        <van-swipe-item v-for="(item, index) in noticeswipe" :key="index" @click="toDetail(item)">
+          <van-notice-bar
+            :scrollable="false"
+            :left-icon="item.icon"
+            background="#FFFBE8"
+          >{{item.text}}</van-notice-bar>
+        </van-swipe-item>
+      </van-swipe>
+      <van-list
+        class="goodlist pd"
+        :offset="offset"
+        v-model="loading"
+        finished-text="没有更多了"
+        :finished="finished"
+        @load="loadmore"
+      >
+        <template v-for="(good,index) in goods">
+          <goods-card
+            class="good"
+            :url="good.img"
+            :title="good.title"
+            :price="good.price"
+            :key="index"
+          ></goods-card>
+        </template>
+      </van-list>
     </div>
-    <van-swipe class="notice" :autoplay="3000" vertical indicator-color="#FFFBE8">
-      <van-swipe-item v-for="(item, index) in noticeswipe" :key="index" @click="toDetail(item)">
-        <van-notice-bar
-          :scrollable="false"
-          :left-icon="item.icon"
-          background="#FFFBE8"
-        >{{item.text}}</van-notice-bar>
-      </van-swipe-item>
-    </van-swipe>
-    <van-list
-      class="goodlist pd"
-      :offset="offset"
-      v-model="loading"
-      finished-text="没有更多了"
-      :finished="finished"
-      @load="loadmore"
-    >
-      <template v-for="(good,index) in goods">
-        <goods-card
-          class="good"
-          :url="good.img"
-          :title="good.title"
-          :price="good.price"
-          :key="index"
-        ></goods-card>
-      </template>
-    </van-list>
   </div>
 </template>
 
@@ -146,52 +148,59 @@ export default {
   width: 100%;
   height: 100%;
   padding-bottom: 50px;
-  .search-border {
-    border-bottom: 1px solid #eee;
-    background-color: black;
-  }
-  .swipe {
-    height: 175px;
+  .search {
     width: 100%;
-    &-img {
+    position: fixed;
+    margin-bottom: 54px;
+    z-index: 999;
+    border-bottom: 1px solid #eee;
+    // background-color: black;
+  }
+  .content {
+    position: relative;
+    top: 54px;
+    .swipe {
+      height: 175px;
       width: 100%;
-      height: 100%;
-    }
-  }
-  .menu {
-    display: flex;
-    margin-top: 10px;
-    text-align: center;
-    color: rgba(#000000, 0.7);
-    font-size: 12px;
-    &-item {
-      flex: 1 1 auto;
-      padding: auto;
       &-img {
-        width: 32px;
-        height: 32px;
-        margin: auto;
-        display: block;
-        border-radius: 50%;
+        width: 100%;
+        height: 100%;
       }
     }
-  }
-  .notice {
-    height: 40px;
-    width: calc(100% - 20px);
-    margin: 10px;
-  }
-  .goodlist {
-    display: flex;
-    flex-wrap: wrap;
-    .good {
-      flex: 0 0 49%;
-      margin-top: 8px;
-      &:nth-child(2n){
-        margin-left: 2%;
+    .menu {
+      display: flex;
+      margin-top: 10px;
+      text-align: center;
+      color: rgba(#000000, 0.7);
+      font-size: 12px;
+      &-item {
+        flex: 1 1 auto;
+        padding: auto;
+        &-img {
+          width: 32px;
+          height: 32px;
+          margin: auto;
+          display: block;
+          border-radius: 50%;
+        }
       }
     }
-
+    .notice {
+      height: 40px;
+      width: calc(100% - 20px);
+      margin: 10px;
+    }
+    .goodlist {
+      display: flex;
+      flex-wrap: wrap;
+      .good {
+        flex: 0 0 49%;
+        margin-top: 8px;
+        &:nth-child(2n) {
+          margin-left: 2%;
+        }
+      }
+    }
   }
 }
 </style>

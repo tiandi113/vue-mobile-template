@@ -41,6 +41,11 @@ export default new Router({
       path: '/goods/:code',
       name: 'goods',
       component: () => import('./views/page/goods.vue')
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: () => import('./views/page/setting.vue')
     }
   ]
 })

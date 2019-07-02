@@ -15,3 +15,18 @@ export function getBanner (params) {
     params
   })
 }
+
+// category 分类页面
+export function getCategory () {
+  return request({
+    url: '/getCategory',
+    method: 'get'
+  })
+}
+
+export function getListByCategory () {
+  return request({
+    url: '/getListByCategory',
+    method: 'post'
+  })
+}
