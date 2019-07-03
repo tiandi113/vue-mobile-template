@@ -1,19 +1,11 @@
 <template>
-  <div>
-    <van-grid :border="false" :column-num="3">
-      <van-grid-item>
-        <van-image src="https://img.yzcdn.cn/vant/apple-1.jpg" />
-        <span class="van-grid-item__text">文字</span>
-      </van-grid-item>
-      <van-grid-item>
-        <van-image src="https://img.yzcdn.cn/vant/apple-2.jpg" />
-        <span class="van-grid-item__text">文字</span>
-      </van-grid-item>
-      <van-grid-item>
-        <van-image src="https://img.yzcdn.cn/vant/apple-3.jpg" />
-        <span class="van-grid-item__text">文字</span>
-      </van-grid-item>
-    </van-grid>
+  <div class="container">
+    <div class="bg">
+      <div class="content">
+        <span>购物车</span>
+        <span style="float:right">购物车</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,4 +16,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  width: 100%;
+  height: calc(100vh - 54px);
+  padding-bottom: 50px;
+  overflow-y: scroll;
+  .bg {
+    height: 200px;
+    width: 100%;
+    background: linear-gradient(right, #c02b2b, #aa6363);
+    position: absolute;
+    top: 0;
+    .content{
+      width: 90%;
+      margin: 10px auto;
+    }
+  }
+}
 </style>
