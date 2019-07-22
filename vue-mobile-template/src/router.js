@@ -46,6 +46,16 @@ export default new Router({
       path: '/setting',
       name: 'setting',
       component: () => import('./views/page/setting.vue')
+    },
+    {
+      path: '/address',
+      name: 'address',
+      component: () => import('./views/page/address/list.vue')
+    },
+    {
+      path: '/addressedit/:addressInfo',
+      name: 'addressedit',
+      component: () => import('./views/page/address/edit.vue')
     }
   ]
 })

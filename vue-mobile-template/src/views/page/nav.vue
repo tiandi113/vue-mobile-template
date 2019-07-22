@@ -9,12 +9,16 @@
       fixed
       :z-index="zindex"
       @click-left="onClickLeft"
+      @click-right="onClickRight"
     >
-    <van-icon v-if="showRight" name="ellipsis" slot="right" />
+      <van-icon v-if="showRight" name="ellipsis" slot="right" />
     </van-nav-bar>
-    <div class="">
-
+    <div class="tool" v-show="showTool">
+      <van-cell icon="home-o" title="首页" clickable to="/" />
     </div>
+    <!-- <van-popup :overlay='false'  class="tool" v-model="showTool" position="right" :style="{ height: '20%' }" >
+      <van-cell icon="home-o" title="首页" clickable to="/" />
+    </van-popup> -->
   </div>
 </template>
 
@@ -24,7 +28,8 @@ export default {
   data () {
     return {
       zindex: 999,
-      tool: false
+      tool: false,
+      showTool: false
     }
   },
   props: {
@@ -38,7 +43,7 @@ export default {
     },
     showRight: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   watch: {
@@ -54,7 +59,8 @@ export default {
       this.$router.back()
     },
     onClickRight () {
-
+      this.showTool = !this.showTool
+      console.log(event)
     }
   }
 }
@@ -64,12 +70,23 @@ export default {
 .navbar {
   background-color: #c62f2f;
   color: #fff !important;
-  .van-nav-bar__text,.van-nav-bar__title,.van-icon {
+  .van-nav-bar__text,
+  .van-nav-bar__title,
+  .van-icon {
     color: #fff;
   }
   .van-icon-arrow-left:before {
     color: #fff;
   }
-
+}
+.tool {
+  width: 80px;
+  position: fixed;
+  top: 46px;
+  right: 0;
+  z-index: 999;
+  .van-cell {
+    background-color: #eee;
+  }
 }
 </style>
